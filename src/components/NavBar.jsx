@@ -270,7 +270,7 @@ const ResponsiveAppBar = ({
                   onChange={(e) => setSearchKey(e.target.value)}
                 />
               </Search>
-              <Button variant="text" type="submit">Search</Button>
+              <Button variant="text" type="submit" sx={{ color: 'text.main' }}>Search</Button>
             </form>
             <Menu
               sx={{ mt: "45px" }}

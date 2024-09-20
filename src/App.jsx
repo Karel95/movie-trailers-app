@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import SearchBar from "./components/SearchBar";
 import MovieList from "./components/MovieList";
 import MovieDetail from "./components/MovieDetail";
 import "./App.css";
@@ -117,13 +116,6 @@ function App() {
         <ResponsiveAppBar
           isDarkMode={isDarkMode}
           mode={mode}
-          searchKey={searchKey}
-          setSearchKey={setSearchKey}
-          searchMovies={searchMoviesHandler}
-        />
-
-        {/* Componente SearchBar */}
-        <SearchBar
           searchKey={searchKey}
           setSearchKey={setSearchKey}
           searchMovies={searchMoviesHandler}

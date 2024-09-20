@@ -270,7 +270,9 @@ const ResponsiveAppBar = ({
                   onChange={(e) => setSearchKey(e.target.value)}
                 />
               </Search>
-              <Button variant="text" type="submit" sx={{ color: 'text.main' }}>Search</Button>
+              <button className="btn btn-primary" variant="text" type="submit">
+                Search
+              </button>
             </form>
             <Menu
               sx={{ mt: "45px" }}
@@ -303,10 +305,7 @@ const ResponsiveAppBar = ({
             </IconButton>
           </Tooltip>
           <Button
-            sx={{ ml: "10px" }}
             startIcon={themeIcon}
-            variant="contained"
-            color="primary"
             onClick={toggleTheme}
           />
         </Toolbar>

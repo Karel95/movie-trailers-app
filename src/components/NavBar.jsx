@@ -327,6 +327,7 @@ const ResponsiveAppBar = ({
           </Tooltip>
           {/* TODO arreglar color en modo claro */}
           <Button
+            color="inherit"
             startIcon={themeIcon}
             onClick={() => {
               toggleTheme();

@@ -4,9 +4,38 @@ import SearchBar from "./components/SearchBar";
 import MovieList from "./components/MovieList";
 import MovieDetail from "./components/MovieDetail";
 import "./App.css";
-
+import ResponsiveAppBar from "./components/NavBar";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { lightTheme, darkTheme } from "./themes";
 
 function App() {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  // Función para alternar el modo
+  const mode = (newMode) => {
+    setIsDarkMode(newMode);
+  };
+
+  // Auto-theme detection
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+    // Detecta el tema al cargar la app
+    setIsDarkMode(mediaQuery.matches);
+
+    const handleChange = (event) => {
+      setIsDarkMode(event.matches);
+    };
+
+    // Escucha cambios en las preferencias del sistema
+    mediaQuery.addEventListener("change", handleChange);
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleChange);
+    };
+  }, []);
+
+  // Fetch movies on app load
   const API_URL = "https://api.themoviedb.org/3";
   const API_KEY = "4f5f43495afcc67e9553f6c684a82f84";
 
@@ -83,27 +112,36 @@ function App() {
 
   return (
     <div>
-      <h2 className="text-center mt-5 mb-5">Trailer Popular Movies</h2>
+      <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
+        <CssBaseline />
+        <ResponsiveAppBar
+          isDarkMode={isDarkMode}
+          mode={mode}
+          searchKey={searchKey}
+          setSearchKey={setSearchKey}
+          searchMovies={searchMoviesHandler}
+        />
 
-      {/* Componente SearchBar */}
-      <SearchBar
-        searchKey={searchKey}
-        setSearchKey={setSearchKey}
-        searchMovies={searchMoviesHandler}
-      />
+        {/* Componente SearchBar */}
+        <SearchBar
+          searchKey={searchKey}
+          setSearchKey={setSearchKey}
+          searchMovies={searchMoviesHandler}
+        />
 
-      {/* Componente MovieDetail */}
-      <MovieDetail
-        movie={movie}
-        trailer={trailer}
-        playing={playing}
-        setPlaying={setPlaying}
-      />
+        {/* Componente MovieDetail */}
+        <MovieDetail
+          movie={movie}
+          trailer={trailer}
+          playing={playing}
+          setPlaying={setPlaying}
+        />
 
-      {/* Componente MovieList */}
-      <div className="container mt-3">
-        <MovieList movies={movies} selectMovie={selectMovie} />
-      </div>
+        {/* Componente MovieList */}
+        <div className="container mt-3">
+          <MovieList movies={movies} selectMovie={selectMovie} />
+        </div>
+      </ThemeProvider>
     </div>
   );
 }

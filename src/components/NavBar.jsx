@@ -18,6 +18,7 @@ import AdbIcon from "@mui/icons-material/Adb";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
+import { Snackbar } from "@mui/material";
 
 // Definimos los tipos de las props para el ThemeMode
 // type ModeProps = {
@@ -110,6 +111,26 @@ const ResponsiveAppBar = ({
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  //snackbar
+  const [open, setOpen] = React.useState(false);
+
+  const themeMsg = isDarkMode ? 'Dark Mode Active' : 'Light Mode Active';
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (
+    _event,
+    reason
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
   };
 
   return (
@@ -304,10 +325,20 @@ const ResponsiveAppBar = ({
               <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
             </IconButton>
           </Tooltip>
+          {/* TODO arreglar color en modo claro */}
           <Button
             startIcon={themeIcon}
-            onClick={toggleTheme}
+            onClick={() => {
+              toggleTheme();
+              handleClick();
+            }}
           />
+          <Snackbar
+              open={open}
+              autoHideDuration={3000}
+              onClose={handleClose}
+              message={themeMsg}
+            />
         </Toolbar>
       </Container>
     </AppBar>

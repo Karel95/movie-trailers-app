@@ -9,7 +9,7 @@ const MovieList = ({ movies, selectMovie }) => {
         {movies.map((movie) => (
           <div
             key={movie.id}
-            className="col-md-4 mb-3"
+            className="col-sm-6 col-md-4 col-xl-3 mb-3"
             onClick={() => selectMovie(movie)}
           >
             <img

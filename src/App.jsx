@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import MovieList from "./components/MovieList";
-import MovieDetail from "./components/MovieDetail";
 import "./App.css";
 import ResponsiveAppBar from "./components/NavBar";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { lightTheme, darkTheme } from "./themes";
+import MovieDetailCarousel from "./components/Carrusel";
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -121,9 +121,10 @@ function App() {
           searchMovies={searchMoviesHandler}
         />
 
-        {/* Componente MovieDetail */}
-        <MovieDetail
+        {/* Prueba de Carrusel */}
+        <MovieDetailCarousel
           movie={movie}
+          movies={movies}
           trailer={trailer}
           playing={playing}
           setPlaying={setPlaying}

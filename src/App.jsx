@@ -68,6 +68,15 @@ function App() {
     }
   };
 
+  //TODO arreglar la seleccion de una peli y la proyeccion del trailer.
+  // Función para seleccionar una película
+  const selectMovie = async (selectedMovie) => {
+    await fetchMovie(selectedMovie.id); // Asegúrate de que los detalles se carguen primero
+    setMovie(selectedMovie); // Luego actualiza el estado de la película seleccionada
+    console.log(selectedMovie);
+    window.scrollTo(0, 0);
+  };
+
   // Función para obtener detalles de una película específica
   const fetchMovie = async (id) => {
     try {
@@ -85,6 +94,7 @@ function App() {
         setTrailer(trailer ? trailer : data.videos.results[0]);
       }
 
+      // Actualiza el estado de movie con los nuevos detalles
       setMovie(data);
     } catch (error) {
       console.error("Error fetching movie details:", error);
@@ -95,13 +105,6 @@ function App() {
   const searchMoviesHandler = (e) => {
     e.preventDefault();
     fetchMovies(searchKey);
-  };
-
-  // Función para seleccionar una película
-  const selectMovie = async (selectedMovie) => {
-    await fetchMovie(selectedMovie.id);
-    setMovie(selectedMovie);
-    window.scrollTo(0, 0);
   };
 
   useEffect(() => {

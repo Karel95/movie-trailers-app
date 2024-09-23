@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import YouTube from "react-youtube";
 
 const MovieDetailCarrusel = ({
+  movie,
   movies = [],
   playing,
   trailer,
   setPlaying,
 }) => {
   const IMAGE_PATH = "https://image.tmdb.org/t/p/original";
+
+  useEffect(() => {
+    if (movie) {
+      // Aquí puedes realizar cualquier acción adicional si es necesario
+    }
+  }, [movie]);
+  
 
   return (
     <div

@@ -40,20 +40,18 @@ const MovieDetailCarrusel = ({
           ))}
         </div>
         <div className="carousel-inner">
-          {movies.map((movie, index) => (
+          {movie ? (
             <div
-              key={movie.id}
-              className={`viewtrailer carousel-item ${
-                index === 0 ? "active" : ""
-              }`}
+              className="viewtrailer"
+              style={{
+                minHeight: 700,
+                backgroundImage: `url("${IMAGE_PATH}${movie.backdrop_path}")`,
+                backgroundSize: "cover", // Ajusta la imagen para que cubra el contenedor
+                backgroundPosition: "center", // Centra la imagen
+                backgroundRepeat: "no-repeat", // Evita la repetición de la imagen
+              }}
             >
-              <img
-                src={`${IMAGE_PATH}${movie.backdrop_path}`}
-                className="d-block w-100"
-                alt={movie.title}
-                style={{ minHeight: "600px", objectFit: "cover" }}
-              />
-              {playing && trailer && trailer.key === movie.trailerKey ? (
+              {playing ? (
                 <>
                   <YouTube
                     videoId={trailer.key}
@@ -79,27 +77,28 @@ const MovieDetailCarrusel = ({
                   </button>
                 </>
               ) : (
-                <div className="container carousel-caption d-none d-md-block">
-                  {trailer ? (
-                    <button
-                      className="boton"
-                      onClick={() => {
-                        setPlaying(true);
-                        movie.trailerKey = trailer.key; // Almacena la clave del trailer actual
-                      }}
-                      type="button"
-                    >
-                      Play Trailer
-                    </button>
-                  ) : (
-                    <p>Sorry, no trailer available</p>
-                  )}
-                  <h1 className="text-white">{movie.title}</h1>
-                  <p className="text-white">{movie.overview}</p>
+                <div className="container">
+                  <div className="">
+                    {trailer ? (
+                      <button
+                        className="boton"
+                        onClick={() => setPlaying(true)}
+                        type="button"
+                      >
+                        Play Trailer
+                      </button>
+                    ) : (
+                      "Sorry, no trailer available"
+                    )}
+                    <div className="carousel-caption d-none d-md-block">
+                      <h1 className="text-white">{movie.title}</h1>
+                      <p className="text-white">{movie.overview}</p>
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
-          ))}
+          ) : null}
         </div>
 
         {/* Controles del carrusel */}

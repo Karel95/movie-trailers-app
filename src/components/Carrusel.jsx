@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import YouTube from "react-youtube";
 
+
+
 const MovieDetailCarrusel = ({
   movie,
   movies = [],
@@ -9,6 +11,16 @@ const MovieDetailCarrusel = ({
   setPlaying,
 }) => {
   const IMAGE_PATH = "https://image.tmdb.org/t/p/original";
+
+  const handleClickPrev = () => {
+    console.log(movies);
+    console.log('clickPrev')
+  };
+  
+  const handleClickNext = () => {
+    console.log(movies);
+    console.log('clickNext')
+  };
 
   useEffect(() => {
     if (movie) {
@@ -42,7 +54,7 @@ const MovieDetailCarrusel = ({
         <div className="carousel-inner">
           {movie ? (
             <div
-              className="viewtrailer"
+              className="viewtrailer carousel-item active"
               style={{
                 minHeight: 700,
                 backgroundImage: `url("${IMAGE_PATH}${movie.backdrop_path}")`,
@@ -107,6 +119,9 @@ const MovieDetailCarrusel = ({
           type="button"
           data-bs-target="#carouselExampleCaptions"
           data-bs-slide="prev"
+          onClick={() => {
+            handleClickPrev();
+          }}
         >
           <span
             className="carousel-control-prev-icon"
@@ -119,6 +134,9 @@ const MovieDetailCarrusel = ({
           type="button"
           data-bs-target="#carouselExampleCaptions"
           data-bs-slide="next"
+          onClick={() => {
+            handleClickNext();
+          }}
         >
           <span
             className="carousel-control-next-icon"

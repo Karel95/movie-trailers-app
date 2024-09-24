@@ -15,11 +15,10 @@ const MovieDetailCarrusel = ({
       // Aquí puedes realizar cualquier acción adicional si es necesario
     }
   }, [movie]);
-  
 
   return (
     <div
-      id="carousel col-12"
+      id="carousel"
       className="carousel-section carousel-dark slide"
       data-bs-ride="carousel"
     >
@@ -28,7 +27,7 @@ const MovieDetailCarrusel = ({
         className="carousel carousel-dark slide"
       >
         <div className="carousel-indicators">
-          {movies.map((movie, index) => (
+          {movies.map((_, index) => (
             <button
               key={index}
               type="button"
@@ -54,7 +53,7 @@ const MovieDetailCarrusel = ({
                 alt={movie.title}
                 style={{ minHeight: "600px", objectFit: "cover" }}
               />
-              {playing ? (
+              {playing && trailer && trailer.key === movie.trailerKey ? (
                 <>
                   <YouTube
                     videoId={trailer.key}
@@ -65,7 +64,11 @@ const MovieDetailCarrusel = ({
                       height: "100%",
                       playerVars: {
                         autoplay: 1,
-                        controls: 0,
+                        controls: 1, // Cambia a 1 si deseas mostrar los controles
+                        rel: 0,
+                        modestbranding: 1,
+                        showinfo: 0,
+                        enablejsapi: 1, // Habilitar la API de JavaScript
                       },
                     }}
                   />
@@ -78,7 +81,10 @@ const MovieDetailCarrusel = ({
                   {trailer ? (
                     <button
                       className="boton"
-                      onClick={() => setPlaying(true)}
+                      onClick={() => {
+                        setPlaying(true);
+                        movie.trailerKey = trailer.key; // Almacena la clave del trailer actual
+                      }}
                       type="button"
                     >
                       Play Trailer

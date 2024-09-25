@@ -1,32 +1,40 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import YouTube from "react-youtube";
-
-
 
 const MovieDetailCarrusel = ({
   movie,
   movies = [],
+  selectMovie,
   playing,
   trailer,
   setPlaying,
 }) => {
   const IMAGE_PATH = "https://image.tmdb.org/t/p/original";
 
+  // Variable para controlar el índice actual usando el estado de React
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Función para manejar el botón "anterior"
   const handleClickPrev = () => {
-    console.log(movies);
-    console.log('clickPrev')
-  };
-  
-  const handleClickNext = () => {
-    console.log(movies);
-    console.log('clickNext')
+    if (currentIndex > 0) {
+      selectMovie(movies[currentIndex - 1]);
+      setCurrentIndex(currentIndex - 1); // Decrementar el índice
+      console.log(movies);
+    } else {
+      console.log("Ya estás en la primera película.");
+    }
   };
 
-  useEffect(() => {
-    if (movie) {
-      // Aquí puedes realizar cualquier acción adicional si es necesario
+  // Función para manejar el botón "siguiente"
+  const handleClickNext = () => {
+    if (currentIndex < movies.length - 1) {
+      selectMovie(movies[currentIndex + 1]);
+      setCurrentIndex(currentIndex + 1); // Incrementar el índice
+    } else {
+      console.log("Ya estás en la última película.");
     }
-  }, [movie]);
+  };
+
 
   return (
     <div
@@ -117,11 +125,7 @@ const MovieDetailCarrusel = ({
         <button
           className="carousel-control-prev"
           type="button"
-          data-bs-target="#carouselExampleCaptions"
-          data-bs-slide="prev"
-          onClick={() => {
-            handleClickPrev();
-          }}
+          onClick={handleClickPrev} // Llamar directamente a la función
         >
           <span
             className="carousel-control-prev-icon"
@@ -132,11 +136,7 @@ const MovieDetailCarrusel = ({
         <button
           className="carousel-control-next"
           type="button"
-          data-bs-target="#carouselExampleCaptions"
-          data-bs-slide="next"
-          onClick={() => {
-            handleClickNext();
-          }}
+          onClick={handleClickNext} // Llamar directamente a la función
         >
           <span
             className="carousel-control-next-icon"

@@ -127,6 +127,7 @@ function App() {
         <MovieDetailCarousel
           movie={movie}
           movies={movies}
+          selectMovie={selectMovie}
           trailer={trailer}
           playing={playing}
           setPlaying={setPlaying}
